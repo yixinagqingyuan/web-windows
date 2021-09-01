@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import taskApps from './modules/taskApps'
 export default createStore({
   state: {
   },
@@ -7,5 +8,6 @@ export default createStore({
   actions: {
   },
   modules: {
+    taskApps
   }
 })
