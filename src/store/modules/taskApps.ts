@@ -15,6 +15,6 @@ export default {
   mutations: {},
   actions: {},
   getters: {
-    tasks: (state: any) => state
+    tasks: (state: any) => state,
   }
 }

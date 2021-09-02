@@ -13,3 +13,7 @@ export const desktopApps = iconIdx.desktop.map(x => {
 export const taskApps = iconIdx.taskbar.map(x => {
   return icons[x]
 });
+
+export const allApps = icons.filter(app => {
+  return app.type == 'app'
+});

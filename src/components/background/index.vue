@@ -1,11 +1,13 @@
 <template>
-	<div className="background" :style="{ backgroundImage: 'url(/img/wallpaper/ThemeA/img0.jpg)' }">
-		111
-	</div>
+	<div
+		className="background"
+		:style="{ backgroundImage: 'url(/img/wallpaper/ThemeA/img0.jpg)' }"
+	></div>
 </template>
 <script lang="ts">
 	import { defineComponent, ref } from 'vue';
 	export default defineComponent({
+		name: 'background',
 		setup() {
 			const bgImg = [];
 			return {};

@@ -1,38 +1,63 @@
 <template>
 	<div class="taskbar">
 		<div class="taskcont">
-			<div className="tasksCont" data-menu="task" :data-side="tasks.align">
+			<div class="tasksCont" data-menu="task" :data-side="tasks.align">
 				<div class="tsbar">
-					<template v-if="tasks.widgets">
-						<icon class="tsIcon" />
+					<icon class="tsIcon" src="home" width="22" click="STARTOGG" />
+					<template v-if="tasks.search">
+						<icon class="tsIcon" src="search" width="22" click="STARTSRC" />
 					</template>
 					<template v-if="tasks.widgets">
-						<icon class="tsIcon" />
+						<icon class="tsIcon" src="widget" width="22" click="WIDGTOGG" />
 					</template>
-					<template v-if="tasks.widgets">
-						<icon class="tsIcon" />
-					</template>
-					<template v-if="tasks.widgets">
-						<icon class="tsIcon" />
-					</template>
+					<div v-for="(task, index) in tasks.apps" :value="task.icon">
+						<icon
+							class="tsIcon"
+							:key="index"
+							:open="apps[task.icon].hide ? null : true"
+							:active="apps[task.icon].z == apps.hz"
+							:click="task.action"
+							:src="task.icon"
+							payload="togg"
+							width="22"
+						/>
+					</div>
 				</div>
+			</div>
+			<div class="taskright">
+				<icon class="taskIcon" fafa="chevron-up" width="10" />
+				<icon class="taskIcon" src="wifi" ui width="14" />
+				<icon class="taskIcon" src="battery" ui width="16" />
+				<icon class="taskIcon" src="audio" ui width="22" />
+				<div class="taskDate handcr prtclk hvdark" data-action="CALNTOGG">
+					<div>
+						{{ new Date().toLocaleDateString() }}
+					</div>
+					<div>
+						{{ new Date().toLocaleTimeString() }}
+					</div>
+				</div>
+				<icon class="taskIcon mr-2 hvdark" ui src="sidepane" width="16" invert click="PANETOGG" />
+				<icon class="graybd" ui width="6" click="SHOWDSK" pr />
 			</div>
 		</div>
 	</div>
 </template>
 <script lang="ts">
-	import { defineComponent } from 'vue';
+	import { defineComponent, ref } from 'vue';
 	import { mapGetters } from 'vuex';
 	import general from '../../components/general';
 	const { icon } = general;
 	export default defineComponent({
+		name: 'taskbar',
 		components: {
 			icon,
 		},
 		computed: {
-			...mapGetters(['tasks']),
+			...mapGetters(['tasks', 'apps']),
 		},
 		setup() {},
+		methods: {},
 	});
 </script>
 
@@ -73,7 +98,7 @@
 	}
 
 	.taskDate {
-		width: 44px;
+		min-width: 44px;
 		height: 100%;
 		display: flex;
 		padding: 6px 8px 6px 6px;
