@@ -14,17 +14,21 @@ const defState = {
   alpha: false,
   curAlpha: 'A',
   qksrch: [
-    ["faClock", 1, "Today in history"],
-    ["faFilm", null, "New movies"],
-    ["faNewspaper", 1, "Top news"],
-    ["faChartLine", null, "Markets today"]
+    ["clock", 1, "Today in history"],
+    ["film", null, "New movies"],
+    ["newspaper", 1, "Top news"],
+    ["chart-line", null, "Markets today"]
   ]
 };
 export default {
   state: () => (defState),
   mutations: {
     STARTOGG: (state: any) => {
-      state.menu = !state.menu
+      state.menu = true
+      state.hide = !state.hide
+    },
+    STARTSRC: (state: any) => {
+      state.menu = false
       state.hide = !state.hide
     }
   },

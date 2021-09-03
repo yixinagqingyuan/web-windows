@@ -1,61 +1,211 @@
 <template>
-	<div class="startMenu dpShad" :data-hide="start.hide" :data-align="align">
-		<transition>
-			<div class="stmenu" :data-allapps="start.showAll" v-if="start.menu">
-				<div class="menuUp">
-					<div class="pinnedApps">
-						<div class="stAcbar">
-							<div class="gpname">常用应用</div>
-							<div class="gpbtn prtclk" data-action="STARTALL">
-								<div>所有应用</div>
-								<icon fafa="chevron-right" width="8" />
-							</div>
-						</div>
-						<div class="pnApps">
-							<template v-for="app in start.pnApps">
-								<div v-if="app.empty" class="pnApp pnEmpty"></div>
-								<div
-									v-else
-									class="pnApp"
-									:value="app.action != null"
-									:data-action="app.action"
-									:data-payload="app.payload || 'full'"
-								>
-									<icon
-										class="pnIcon"
-										:src="app.icon"
-										width="24"
-										:payload="app.payload || 'full'"
-									/>
-									<div class="appName">{{ app.name }}</div>
-								</div>
-							</template>
-						</div>
-					</div>
-					<div class="recApps">
-						<div class="stAcbar">
-							<div class="gpname">推荐</div>
-							<div class="gpbtn none">
-								<div>更多</div>
-								<icon fafa="chevron-right" width="8" />
-							</div>
-						</div>
-						<div class="reApps">
-							<template v-for="app in start.rcApps.slice(0, 6)">
-								<div class="rnApp" v-if="app.name">
-									<icon class="pnIcon" :src="app.icon" width="22" />
-									<div class="acInfo">
-										<div class="appName">{{ app.name }}</div>
-										<div class="timeUsed">{{ app.lastUsed }}</div>
+	<transition>
+		<div class="startMenu dpShad" :data-hide="start.hide" :data-align="align">
+			<transition>
+				<div v-if="start.menu" class="menuBox">
+					<div class="stmenu" :data-allapps="start.showAll">
+						<div class="menuUp">
+							<div class="pinnedApps">
+								<div class="stAcbar">
+									<div class="gpname">常用应用</div>
+									<div class="gpbtn prtclk" data-action="STARTALL">
+										<div>所有应用</div>
+										<icon fafa="chevron-right" width="8" />
 									</div>
 								</div>
-							</template>
+								<div class="pnApps">
+									<template v-for="app in start.pnApps">
+										<div v-if="app.empty" class="pnApp pnEmpty"></div>
+										<div
+											v-else
+											class="pnApp"
+											:value="app.action != null"
+											:data-action="app.action"
+											:data-payload="app.payload || 'full'"
+										>
+											<icon
+												class="pnIcon"
+												:src="app.icon"
+												width="24"
+												:payload="app.payload || 'full'"
+											/>
+											<div class="appName">{{ app.name }}</div>
+										</div>
+									</template>
+								</div>
+							</div>
+							<div class="recApps">
+								<div class="stAcbar">
+									<div class="gpname">推荐</div>
+									<div class="gpbtn none">
+										<div>更多</div>
+										<icon fafa="chevron-right" width="8" />
+									</div>
+								</div>
+								<div class="reApps">
+									<template v-for="app in start.rcApps.slice(0, 6)">
+										<div class="rnApp" v-if="app.name">
+											<icon class="pnIcon" :src="app.icon" width="22" />
+											<div class="acInfo">
+												<div class="appName">{{ app.name }}</div>
+												<div class="timeUsed">{{ app.lastUsed }}</div>
+											</div>
+										</div>
+									</template>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="allCont" :data-allapps="start.showAll">
+						<div class="appCont">
+							<div class="stAcbar">
+								<div class="gpname">所有应用</div>
+								<div class="gpbtn prtclk" data-action="STARTALL">
+									<icon class="chevLeft" fafa="chevron-left" width="8" />
+									<div>返回</div>
+								</div>
+							</div>
+							<div class="allApps" :data-alpha="start.alpha">
+								<template v-for="(ldx, index) in start.contApps">
+									<template v-if="ldx.length !== 0">
+										<div
+											class="allApp prtclk"
+											data-action="STARTALPHA"
+											:id="`char${index == 0 ? '#' : fromCharCode(index)}`"
+										>
+											<div class="ltName">{{ index == 0 ? '#' : fromCharCode(index) }}</div>
+										</div>
+									</template>
+									<div
+										v-for="app in ldx"
+										class="allApp prtclk"
+										:data-action="app.action"
+										:data-payload="app.payload || 'full'"
+									>
+										<icon class="pnIcon" :src="app.icon" width="20" />
+										<div class="appName">{{ app.name }}</div>
+									</div>
+								</template>
+							</div>
+							<div class="alphaBox" :data-alpha="start.alpha">
+								<div class="alphaCont">
+									<div class="dullApp allApp">
+										<div class="ltName">&</div>
+									</div>
+									<div
+										v-for="(ldx, index) in start.contApps"
+										:class="ldx.length == 0 ? 'dullApp allApp' : 'allApp prtclk'"
+										data-action="STARTALPHA"
+										:data-payload="index === 0 ? '#' : fromCharCode(index)"
+									>
+										<div class="ltName">{{ index === 0 ? '#' : fromCharCode(index) }}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="menuBar">
+						<div class="profile handcr">
+							<icon
+								src="blueProf"
+								ui
+								rounded
+								width="26"
+								click="EXTERNAL"
+								payload="https://blueedge.me"
+							/>
+							<div class="usName">Blue Edge</div>
+						</div>
+						<div class="powerCtrl">
+							<icon src="power" ui width="14" invert />
 						</div>
 					</div>
 				</div>
-			</div>
-		</transition>
-	</div>
+				<div v-else className="searchMenu">
+					<div className="searchBar">
+						<icon src="search" ui width="16" />
+						<input type="text" :defaultValue="query" placeholder="请输入 ..." />
+					</div>
+					<div className="flex py-4 px-1 text-xs">
+						<div className="opts w-1/2 text-gray-700 flex justify-between">
+							<div :value="atab == 'All'">All</div>
+							<div :value="atab == 'Apps'">Apps</div>
+							<div :value="atab == 'Documents'">Documents</div>
+							<div :value="atab == 'Web'">Web</div>
+							<div :value="atab == 'More'">More</div>
+						</div>
+					</div>
+					<div className="shResult w-full flex justify-between">
+						<div className="leftSide flex-col px-1" :data-width="query.length != 0">
+							<div className="text-xss font-semibold mb-4">
+								{{ query.length ? 'Best match' : 'Top apps' }}
+							</div>
+							<div className="textResult h-16" v-if="query.length">
+								<div className="smatch flex my-2 bg-gray-100 p-3 rounded">
+									<icon :src="match.icon" width="24" />
+									<div className="matchInfo flex-col px-2">
+										<div className="font-semibold text-xs">{{ match.name }}</div>
+										<div className="text-xss">App</div>
+									</div>
+								</div>
+								<div
+									className="smatch flex my-2 bg-gray-100 p-3 rounded handcr prtclk"
+									data-action="EDGELINK"
+									:data-payload="query"
+								>
+									<icon src="search" ui width="20" />
+									<div className="matchInfo flex-col px-2">
+										<div className="font-semibold text-xs">Search online</div>
+										<div className="text-xss">Web</div>
+									</div>
+								</div>
+							</div>
+							<div className="topApps flex w-full justify-between" v-else>
+								<div
+									className="topApp pt-4 py-2 bg-gray-100 ltShad"
+									v-for="app in start.rcApps.slice(2, 7)"
+								>
+									<icon
+										:click="app.action"
+										:payload="app.payload || 'full'"
+										:src="app.icon"
+										width="24"
+									/>
+									<div className="text-xs mt-2">{{ app.name }}</div>
+								</div>
+							</div>
+							<div className="text-xss font-semibold mt-8">Quick Searches</div>
+							<div className="quickSearches pl-4 mt-2">
+								<div
+									v-for="srch in start.qksrch"
+									className="qksrch flex align-center py-3 handcr prtclk"
+									data-action="EDGELINK"
+									:data-payload="srch[2]"
+								>
+									<icon :fafa="srch[0]" :reg="srch[1]" />
+									<div className="ml-4 text-xs">{{ srch[2] }}</div>
+								</div>
+							</div>
+						</div>
+						<div className="w-2/3 rightSide rounded" v-if="query.length">
+							<icon className="mt-6" :src="match.icon" width="64" />
+							<div>{{ match.name }}</div>
+							<div className="text-xss mt-2">App</div>
+							<div className="hline mt-8"></div>
+							<div
+								className="openlink w-4/5 flex prtclk handcr pt-3"
+								:data-action="match.action"
+								:data-payload="match.payload ? match.payload : 'full'"
+							>
+								<icon src="link" ui width="16" />
+								<div className="text-xss ml-3">Open</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</transition>
+		</div>
+	</transition>
 </template>
 <script lang="ts">
 	import { defineComponent, computed, ref, watchEffect } from 'vue';
@@ -68,7 +218,7 @@
 				getters: { tasks, start },
 			}: any = useStore();
 			const query = ref('');
-			const match = ref('');
+			const match: any = ref('');
 			const atab = ref('All');
 			const tabSw = (e: any) => {
 				atab.value = e.target.innerText.trim();
@@ -83,12 +233,14 @@
 					}
 				}
 			});
+			const fromCharCode = (index: any) => String.fromCharCode(index + 64);
 			return {
 				align: computed(() => tasks.align),
 				query,
 				match,
 				atab,
 				tabSw,
+				fromCharCode,
 			};
 		},
 		methods: {},
@@ -134,6 +286,10 @@
 			pointer-events: none;
 		}
 	}
+	.menuBox {
+		transition: ease-in-out 200ms;
+	}
+
 	.allCont,
 	.stmenu {
 		position: relative;
