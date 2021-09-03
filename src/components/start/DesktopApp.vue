@@ -1,28 +1,40 @@
 <template>
 	<div
 		class="desktopCont"
-		style="
-			grid-template-columns: repeat(auto-fit, 90px);
-			grid-template-rows: repeat(auto-fit, 98px);
-		"
-	></div>
+		:style="{
+			gridTemplateColumns: `repeat(auto-fit, ${Math.round(deskApps.size * 90)}px)`,
+			gridTemplateRows: `repeat(auto-fit, ${Math.round(deskApps.size * 98)}px)`,
+		}"
+	>
+		<template v-if="!deskApps.hide">
+			<div class="dskApp" :key="index" v-for="(app, index) in deskApps.apps">
+				<icon
+					:click="app.action"
+					:width="Math.round(deskApps.size * 36)"
+					class="dskIcon"
+					:src="app.icon"
+					:payload="app.payload || 'full'"
+				/>
+				<div className="appName">{{ app.name }}</div>
+			</div>
+		</template>
+		<StartMenu></StartMenu>
+	</div>
 </template>
 <script lang="ts">
-	import { desktopApps } from '../../utils';
 	import { defineComponent } from 'vue';
+	import { mapGetters } from 'vuex';
 	import general from '../general/index';
+	import StartMenu from './StartMenu.vue';
 	const { icon } = general;
-	const defState = {
-		apps: desktopApps,
-		hide: false,
-		size: 1,
-		sort: 'none',
-		abOpen: false,
-	};
 	export default defineComponent({
 		setup() {},
 		components: {
 			icon,
+			StartMenu,
+		},
+		computed: {
+			...mapGetters(['deskApps']),
 		},
 	});
 </script>
@@ -33,5 +45,25 @@
 		display: grid;
 		grid-auto-flow: column;
 		align-content: space-evenly;
+	}
+	.dskApp {
+		margin: 4px;
+		padding: 12px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		font-size: 0.8em;
+		transition: all ease-in-out 200ms;
+
+		&:hover {
+			background: rgba(255, 255, 255, 0.25);
+		}
+
+		.appName {
+			text-align: center;
+			color: #fafafa;
+			margin: 4px 0;
+			text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+		}
 	}
 </style>

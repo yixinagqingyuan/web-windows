@@ -6,6 +6,7 @@
 		:data-active="active"
 		:data-payload="payload"
 		v-if="!fafa"
+		@click="click != null ? clickDispatch(click) : null"
 	>
 		<img
 			v-if="src"
@@ -32,8 +33,8 @@
 	</div>
 </template>
 <script lang="ts">
-	import { defineComponent, ref, computed } from 'vue';
-
+	import { defineComponent, computed } from 'vue';
+	import { useStore } from 'vuex';
 	export default defineComponent({
 		props: [
 			'fafa',
@@ -55,6 +56,7 @@
 			'reg',
 		],
 		setup(props) {
+			const { commit }: any = useStore();
 			const srcUrl = computed(() => {
 				if (props.ext != null) {
 					return props.src;
@@ -72,7 +74,7 @@
 				}
 			});
 
-			return { prtclk, srcUrl };
+			return { prtclk, srcUrl, clickDispatch: (action: any) => commit(action) };
 		},
 	});
 </script>

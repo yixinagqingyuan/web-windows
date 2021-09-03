@@ -14,6 +14,16 @@ export const taskApps = iconIdx.taskbar.map(x => {
   return icons[x]
 });
 
+export const pinnedApps = iconIdx.pinned.map(x => {
+  return icons[x]
+});
+
 export const allApps = icons.filter(app => {
   return app.type == 'app'
+});
+
+export const recentApps = iconIdx.recent.map(x => {
+  var obj: any = icons[x];
+  obj.lastUsed = Math.floor(Math.random() * 400) - 40;
+  return obj
 });
