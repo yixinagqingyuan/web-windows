@@ -1,4 +1,3 @@
 import icon from './icon.vue'
-export default {
-  icon
-}
+
+export const Icon = icon

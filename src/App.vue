@@ -3,6 +3,7 @@
 		<background />
 		<div class="desktop">
 			<DesktopApp />
+			<WidPane />
 		</div>
 		<!-- <router-view></router-view> -->
 		<Taskbar />
@@ -11,16 +12,16 @@
 
 <script lang="ts">
 	import background from './components/background/index.vue';
-	import start from './components/start/index';
+	import { DesktopApp, WidPane } from './components/start/index';
 	import Taskbar from './components/taskbar/index.vue';
 	import { defineComponent } from 'vue';
-	const { DesktopApp } = start;
 	export default defineComponent({
 		name: 'App',
 		components: {
 			background,
 			DesktopApp,
 			Taskbar,
+			WidPane,
 		},
 	});
 </script>

@@ -3,15 +3,15 @@
 		<div class="taskcont">
 			<div class="tasksCont" data-menu="task" :data-side="tasks.align">
 				<div class="tsbar">
-					<icon class="tsIcon" src="home" width="22" click="STARTOGG" />
+					<Icon class="tsIcon" src="home" width="22" click="STARTOGG" />
 					<template v-if="tasks.search">
-						<icon class="tsIcon" src="search" width="22" click="STARTSRC" />
+						<Icon class="tsIcon" src="search" width="22" click="STARTSRC" />
 					</template>
 					<template v-if="tasks.widgets">
-						<icon class="tsIcon" src="widget" width="22" click="WIDGTOGG" />
+						<Icon class="tsIcon" src="widget" width="22" click="WIDGTOGG" />
 					</template>
 					<div v-for="(task, index) in tasks.apps" :value="task.icon">
-						<icon
+						<Icon
 							class="tsIcon"
 							:key="index"
 							:open="apps[task.icon].hide ? null : true"
@@ -25,10 +25,10 @@
 				</div>
 			</div>
 			<div class="taskright">
-				<icon class="taskIcon" fafa="chevron-up" width="10" />
-				<icon class="taskIcon" src="wifi" ui width="14" />
-				<icon class="taskIcon" src="battery" ui width="16" />
-				<icon class="taskIcon" src="audio" ui width="22" />
+				<Icon class="taskIcon" fafa="chevron-up" width="10" />
+				<Icon class="taskIcon" src="wifi" ui width="14" />
+				<Icon class="taskIcon" src="battery" ui width="16" />
+				<Icon class="taskIcon" src="audio" ui width="22" />
 				<div class="taskDate handcr prtclk hvdark" data-action="CALNTOGG">
 					<div>
 						{{ new Date().toLocaleDateString() }}
@@ -37,8 +37,8 @@
 						{{ new Date().toLocaleTimeString() }}
 					</div>
 				</div>
-				<icon class="taskIcon mr-2 hvdark" ui src="sidepane" width="16" invert click="PANETOGG" />
-				<icon class="graybd" ui width="6" click="SHOWDSK" pr />
+				<Icon class="taskIcon mr-2 hvdark" ui src="sidepane" width="16" invert click="PANETOGG" />
+				<Icon class="graybd" ui width="6" click="SHOWDSK" pr />
 			</div>
 		</div>
 	</div>
@@ -46,12 +46,11 @@
 <script lang="ts">
 	import { defineComponent, ref } from 'vue';
 	import { mapGetters } from 'vuex';
-	import general from '../../components/general';
-	const { icon } = general;
+	import { Icon } from '../../components/general';
 	export default defineComponent({
 		name: 'taskbar',
 		components: {
-			icon,
+			Icon,
 		},
 		computed: {
 			...mapGetters(['tasks', 'apps']),

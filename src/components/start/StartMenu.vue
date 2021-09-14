@@ -210,8 +210,7 @@
 <script lang="ts">
 	import { defineComponent, computed, ref, watchEffect } from 'vue';
 	import { useStore, mapGetters } from 'vuex';
-	import general from '../general/index';
-	const { icon } = general;
+	import { Icon } from '../general/index';
 	export default defineComponent({
 		setup() {
 			const {
@@ -248,7 +247,7 @@
 			...mapGetters(['start']),
 		},
 		components: {
-			icon,
+			Icon,
 		},
 	});
 </script>

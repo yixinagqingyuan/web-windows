@@ -8,7 +8,7 @@
 	>
 		<template v-if="!deskApps.hide">
 			<div class="dskApp" :key="index" v-for="(app, index) in deskApps.apps">
-				<icon
+				<Icon
 					:click="app.action"
 					:width="Math.round(deskApps.size * 36)"
 					class="dskIcon"
@@ -24,13 +24,12 @@
 <script lang="ts">
 	import { defineComponent } from 'vue';
 	import { mapGetters } from 'vuex';
-	import general from '../general/index';
+	import { Icon } from '../general/index';
 	import StartMenu from './StartMenu.vue';
-	const { icon } = general;
 	export default defineComponent({
 		setup() {},
 		components: {
-			icon,
+			Icon,
 			StartMenu,
 		},
 		computed: {

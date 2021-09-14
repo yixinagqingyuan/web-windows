@@ -3,6 +3,7 @@ import taskApps from './modules/taskApps'
 import apps from './modules/apps'
 import desktop from './modules/desktop'
 import startmenu from './modules/startmenu'
+import widpane from './modules/widpane'
 export default createStore({
   state: {
   },
@@ -14,7 +15,8 @@ export default createStore({
     taskApps,
     apps,
     desktop,
-    startmenu
+    startmenu,
+    widpane
   },
   getters: {
     apps: (state: any) => {

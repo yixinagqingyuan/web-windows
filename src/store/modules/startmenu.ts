@@ -21,7 +21,7 @@ const defState = {
   ]
 };
 export default {
-  state: () => (defState),
+  state: () => defState,
   mutations: {
     STARTOGG: (state: any) => {
       state.menu = true
