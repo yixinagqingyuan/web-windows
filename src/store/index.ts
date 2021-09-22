@@ -4,6 +4,7 @@ import apps from './modules/apps'
 import desktop from './modules/desktop'
 import startmenu from './modules/startmenu'
 import widpane from './modules/widpane'
+import sidepane from './modules/sidepane'
 export default createStore({
   state: {
   },
@@ -16,7 +17,8 @@ export default createStore({
     apps,
     desktop,
     startmenu,
-    widpane
+    widpane,
+    sidepane
   },
   getters: {
     apps: (state: any) => {
